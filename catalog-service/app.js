@@ -39,6 +39,7 @@ async function sleep(ms) {
 
 async function initDb() {
   for (let attempt = 0; attempt < 10; attempt++) {
+    console.log(` Attempting to connect to database (attempt ${attempt + 1}/10)`);
     try {
       await pool.query(`
         CREATE TABLE IF NOT EXISTS products (
@@ -62,7 +63,7 @@ async function initDb() {
       }
       return;
     } catch (err) {
-      console.log(`DB not ready (attempt ${attempt + 1}/10): ${err.message}`);
+      console.log(`DB not ready (attempt ${attempt + 1}/10): ${err}`);
       await sleep(2000);
     }
   }
