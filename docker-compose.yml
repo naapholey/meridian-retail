@@ -1,0 +1,63 @@
+services:
+  auth-service:
+    build: ./auth-service
+    image: naapholey/auth_service
+    container_name: meridian_retail_auth_service
+    env_file:
+      - ./.env
+    volumes:
+      - ./auth-service:/app
+    networks:
+      - meridian-network
+  
+  catalog-service:
+    build: ./catalog-service
+    image: naapholey/catalog_service
+    container_name: meridial_retail_catalog_service
+    env_file:
+      - ./.env
+    volumes:
+      - ./catalog-service:/app
+      - /app/node_modules
+    networks:
+      - meridian-network
+
+  orders-service:
+    build: ./orders-service
+    image: naapholey/orders_service
+    container_name: meridian_retail_orders_service
+    env_file:
+      - ./.env
+    volumes:
+      - ./orders-service:/app
+    networks:
+      - meridian-network
+
+  frontend:
+    build: ./frontend
+    image: naapholey/meridian_retail_frontend
+    container_name: meridian_retail_frontend
+    env_file:
+      - ./.env
+    volumes:
+      - ./frontend:/app
+    networks:
+      - meridian-network
+
+  # The central traffic directory
+  reverse-proxy:
+    image: nginx:1.25-alpine
+    ports:
+      - "8080:80"  # Exposes the entire system on http://localhost
+    volumes:
+      - ./nginx/meridian-http.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - auth-service
+      - orders-service
+      - catalog-service
+    networks:
+      - meridian-network
+networks:
+  meridian-network:
+    driver: bridge
