@@ -12,7 +12,7 @@ module "vpc" {
 module "securitygroup" {
   source = "./modules/securitygroup"
   vpc_id              = module.vpc.vpc_id
-  security_group_name = "zuriapp-sg"
+  security_group_name = "meridian-sg"
   inbound_port        = 80
   ssh_port            = 22
   outbound_port       = 0
@@ -29,9 +29,5 @@ instance_type = var.instance_type
   vpc_security_group_ids = [module.securitygroup.security_group_id]
   project_name = var.project_name
   environment            = "prod"
-
-  //secret_arn       = data.aws_secretsmanager_secret.store.arn
-  //iam_policy       = "zuriapp-secrets-policy"
-  //instance_profile = "zuriapp-ec2-profile"
 
 }
