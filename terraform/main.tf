@@ -1,0 +1,37 @@
+module "vpc" {
+  source = "./modules/vpc"
+
+  vpc_name            = var.vpc_name
+  vpc_cidr            = var.vpc_cidr
+  private_subnet_cidr = var.private_subnet_cidr
+  public_subnet_cidrs = var.public_subnet_cidrs
+  availability_zones  = var.availability_zones
+  environment         = var.environment
+}
+
+module "securitygroup" {
+  source = "./modules/securitygroup"
+  vpc_id              = module.vpc.vpc_id
+  security_group_name = "zuriapp-sg"
+  inbound_port        = 80
+  ssh_port            = 22
+  outbound_port       = 0
+  https_port          = 443
+  node_port = 3000
+}
+
+module "ec2" {
+  source = "./modules/ec2"
+
+instance_type = var.instance_type
+  subnet_id              = module.vpc.public_subnet_ids[0]
+  key_name               = var.key_name
+  vpc_security_group_ids = [module.securitygroup.security_group_id]
+  project_name = var.project_name
+  environment            = "prod"
+
+  //secret_arn       = data.aws_secretsmanager_secret.store.arn
+  //iam_policy       = "zuriapp-secrets-policy"
+  //instance_profile = "zuriapp-ec2-profile"
+
+}
