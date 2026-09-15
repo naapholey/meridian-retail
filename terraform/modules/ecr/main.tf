@@ -47,9 +47,6 @@ resource "aws_ecr_repository" "frontend" {
   }
 }
 
-data "policy" "info" {
-  
-}
 resource "aws_ecr_lifecycle_policy" "auth" {
   repository = aws_ecr_repository.auth.name
   policy = var.ecr_lifecycle_policy

@@ -31,3 +31,8 @@ instance_type = var.instance_type
   environment            = "prod"
 
 }
+
+module "aws_ecr_repository" {
+  source = "./modules/ecr"
+  project_name = "meridian"
+}
