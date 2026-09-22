@@ -112,9 +112,7 @@ jobs:
       - name: Show repository structure
         run: |
           pwd
-          ls -la
-          find . -maxdepth 2 -type d
-
+          ls /home/runner/work/meridian-retail/meridian-retail -la
       # 4. Build, tag, and push the Docker image to ECR
       - name: Build, tag, and push docker image to Amazon ECR
         env:
