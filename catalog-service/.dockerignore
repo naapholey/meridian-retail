@@ -1,0 +1,31 @@
+# --- Version Control & IDEs ---
+.git
+.gitignore
+.vscode/
+.idea/
+
+# --- Local Node Dependencies (CRITICAL) ---
+node_modules/
+.npm/
+.yarn/
+yarn-error.log
+npm-debug.log*
+
+# --- Build Outputs & Caches ---
+dist/
+build/
+.cache/
+.eslintcache
+
+# --- Secrets & Environment Configurations ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# --- Docker Configurations ---
+Dockerfile
+Dockerfile*
+docker-compose*.yml
+.dockerignore

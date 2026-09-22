@@ -1,0 +1,41 @@
+# --- Version Control & IDEs ---
+.git
+.gitignore
+.vscode/
+.idea/
+
+# --- Python Bytecode & Caches (CRITICAL) ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# --- Virtual Environments ---
+venv/
+.venv/
+env/
+ENV/
+bin/
+lib/
+lib64/
+
+# --- Secrets, Tokens & Private Keys (High Priority for Auth) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.jwt
+secret_key*
+*.db
+*.sqlite3
+
+# --- Docker Configurations ---
+Dockerfile
+Dockerfile*
+docker-compose*.yml
+.dockerignore
