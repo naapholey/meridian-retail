@@ -50,7 +50,7 @@ resource "aws_s3_bucket_public_access_block" "state_public_block" {
 resource "aws_dynamodb_table" "terraform_locks" {
   name         = "meridian-terraform-state-831e2265"
   billing_mode = "PAY_PER_REQUEST" # Cost-efficient billing configuration
-  hash_key     = "LockID"         # This exact attribute string is required by Terraform
+  hash_key     = "LockID"          # This exact attribute string is required by Terraform
 
   attribute {
     name = "LockID"
@@ -80,6 +80,6 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region  = "us-east-1"
   profile = "meridian"
 }

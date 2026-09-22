@@ -43,8 +43,8 @@ variable "key_name" {
 variable "project_name" {
   default = "meridian-app"
 }
- variable "runner_ssh_ip" {
- description = "Public IP of the GitHub Actions runner for SSH access"
+variable "runner_ssh_ip" {
+  description = "Public IP of the GitHub Actions runner for SSH access"
   type        = string
   default     = "0.0.0.0/0"
 }

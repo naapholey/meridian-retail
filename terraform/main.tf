@@ -10,31 +10,31 @@ module "vpc" {
 }
 
 module "securitygroup" {
-  source = "./modules/securitygroup"
+  source              = "./modules/securitygroup"
   vpc_id              = module.vpc.vpc_id
-  runner_ssh_ip = var.runner_ssh_ip
+  runner_ssh_ip       = var.runner_ssh_ip
   security_group_name = "meridian-sg"
   inbound_port        = 80
   ssh_port            = 22
   outbound_port       = 0
   https_port          = 443
-  node_port = 3000
+  node_port           = 3000
 }
 
 module "ec2" {
   source = "./modules/ec2"
 
-instance_type = var.instance_type
+  instance_type          = var.instance_type
   subnet_id              = module.vpc.public_subnet_ids[0]
   key_name               = var.key_name
   vpc_security_group_ids = [module.securitygroup.security_group_id]
-  project_name = var.project_name
+  project_name           = var.project_name
   environment            = "prod"
 
 }
 
 module "aws_ecr_repository" {
-  source = "./modules/ecr"
+  source       = "./modules/ecr"
   project_name = "meridian"
 }
 
