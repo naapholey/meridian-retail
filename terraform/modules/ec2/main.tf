@@ -14,10 +14,10 @@ data "aws_ami" "ubuntu" {
   }
 }
 
- resource "aws_iam_role" "meridian" {
+resource "aws_iam_role" "meridian" {
   name = "${var.project_name}-ec2-role"
-   # Forces Terraform to wipe out the old resource before building the new one
-  
+  # Forces Terraform to wipe out the old resource before building the new one
+
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -30,7 +30,7 @@ data "aws_ami" "ubuntu" {
       }
     ]
   })
-} 
+}
 
 /* resource "aws_iam_policy" "meridian" {
    name = "${var.project_name}-role-policy"
@@ -56,8 +56,8 @@ resource "aws_iam_role_policy_attachment" "attach_policy" {
   //policy_arn = aws_iam_policy.meridian.arn
 }
 resource "aws_iam_role_policy_attachment" "ecr_attach_policy" {
- role       = aws_iam_role.meridian.name
- policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" 
+  role       = aws_iam_role.meridian.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 resource "aws_iam_instance_profile" "meridian" {
   name = "${var.project_name}-instance-profile"
@@ -65,13 +65,13 @@ resource "aws_iam_instance_profile" "meridian" {
 }
 
 resource "aws_instance" "meridian" {
-    ami                         = data.aws_ami.ubuntu.id
+  ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   subnet_id                   = var.subnet_id
   vpc_security_group_ids      = var.vpc_security_group_ids
   key_name                    = var.key_name
   associate_public_ip_address = true
-  iam_instance_profile = aws_iam_instance_profile.meridian.name
+  iam_instance_profile        = aws_iam_instance_profile.meridian.name
 
   root_block_device {
     volume_size = 30

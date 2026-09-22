@@ -1,11 +1,11 @@
 variable "instance_type" {
-    description = "EC2 instance type"
-    type        = string
-    default     = "t3.small"
+  description = "EC2 instance type"
+  type        = string
+  default     = "t3.small"
 }
 
 variable "subnet_id" {
-  type = string
+  type        = string
   description = "subnet value"
 }
 
@@ -20,10 +20,10 @@ variable "key_name" {
 }
 
 variable "project_name" {
-    //default = "meridian-retail"
-    type = string
+  //default = "meridian-retail"
+  type = string
 }
 
 variable "environment" {
-    default = "dev"
+  default = "dev"
 }

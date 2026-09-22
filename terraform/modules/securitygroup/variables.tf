@@ -1,4 +1,4 @@
-variable "security_group_name"  {
+variable "security_group_name" {
   type        = string
   description = "Name of the security group"
 }
@@ -21,18 +21,18 @@ variable "outbound_port" {
   type        = number
   description = "Port for outbound traffic"
 }
- variable "https_port" {
+variable "https_port" {
   type        = number
   description = "Port for HTTPS traffic"
- }
+}
 /*  variable "kubernetes_api_port" {
   type        = number
   description = "Port for Kubernetes API server"
  } */
- variable "node_port" {
+variable "node_port" {
   type        = number
   description = "Port for Kubernetes NodePort service"
- }
-  variable "runner_ssh_ip" {
- 
-} 
+}
+variable "runner_ssh_ip" {
+
+}

@@ -3,7 +3,7 @@ variable "project_name" {
 }
 
 variable "ecr_lifecycle_policy" {
-  default     = <<EOF
+  default = <<EOF
 {
   "rules": [
     {
