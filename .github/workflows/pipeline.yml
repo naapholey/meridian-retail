@@ -1,13 +1,27 @@
+name: Test OIDC
+
+on:
+  workflow_dispatch:
+
 permissions:
   id-token: write
   contents: read
 
-- name: Configure AWS Credentials
-  uses: aws-actions/configure-aws-credentials@v4
-  with:
-    role-to-assume: ${{ secrets.ARN_TO_ASSUME1 }}
-    role-session-name: GitHub_to_AWS_via_FederatedOIDC
-    aws-region: ${{ secrets.AWS_REGION1 }}
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
-- name: Verify AWS Identity
-  run: aws sts get-caller-identity
+    steps:
+      - uses: actions/checkout@v4
+    
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.ARN_TO_ASSUME1 }}
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ secrets.AWS_REGION1 }}
+
+      - name: Verify AWS Identity
+        run: aws sts get-caller-identity
+
+      - run: aws sts get-caller-identity
