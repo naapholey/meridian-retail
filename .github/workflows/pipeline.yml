@@ -17,11 +17,11 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.ARN_TO_ASSUME1 }}
+          role-to-assume: arn:aws:iam::172033175381:role/meridian-github-actions-role
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
-          aws-region: ${{ secrets.AWS_REGION1 }}
+          aws-region: us-east-1
 
       - name: Verify AWS Identity
         run: aws sts get-caller-identity
 
-      - run: aws sts get-caller-identity
+      #- run: aws sts get-caller-identity
