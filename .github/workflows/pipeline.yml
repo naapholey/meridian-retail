@@ -96,6 +96,18 @@ jobs:
     runs-on: ubuntu-latest
     needs: infrastructure
 
+    strategy:
+      matrix:
+        include:
+          - service: auth-service
+            repository: meridian-auth-ecr
+          - service: catalog-service
+            repository: meridian-catalog-ecr
+          - service: orders-service
+            repository: meridian-orders-ecr
+          - service: frontend
+            repository: meridian-frontend-ecr
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -117,10 +129,10 @@ jobs:
           ls -la
       # 4. Build, tag, and push the Docker image to ECR
       - name: Build, tag, and push docker image to Amazon ECR
-        working-directory: auth-service
+        working-directory:  ${{ matrix.service }} #auth-service
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: meridian-auth-ecr
+          REPOSITORY: ${{ matrix.repository }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
           
