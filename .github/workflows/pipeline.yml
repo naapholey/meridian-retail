@@ -16,7 +16,7 @@ jobs:
     
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.ARN_TO_ASSUME }}
+          role-to-assume: arn:aws:iam::172033175381:role/meridian-github-actions-role
           aws-region: us-east-1
 
       - run: aws sts get-caller-identity
