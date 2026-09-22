@@ -90,3 +90,22 @@ jobs:
         run: |
           EC2_IP=$(terraform output -raw ec2_public_ip)
           echo "ec2_public_ip=$EC2_IP" >> "$GITHUB_OUTPUT"
+  
+  Docker-create-and-push:
+    name: Docker create and push
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 3. Log into Amazon ECR
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # 4. Build, tag, and push the Docker image to ECR
+      - name: Build, tag, and push docker image to Amazon ECR
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG .
+          docker push $REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
