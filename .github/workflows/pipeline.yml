@@ -13,8 +13,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: github/actions-oidc-debugger@v1
+        with:
+          audience: 'naapholey/meridian-retail'
 
       - uses: aws-actions/configure-aws-credentials@v4
         with:
