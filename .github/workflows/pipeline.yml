@@ -61,7 +61,7 @@ jobs:
         run: |
           RUNNER_IP=$(curl -s https://ifconfig.me)
           echo "Runner IP is $RUNNER_IP"
-          echo "runner_ssh_ip=\"${RUNNER_IP}/32\"" > terraform/terraform.tfvars
+          echo "runner_ssh_ip = \"${RUNNER_IP}/32\"" > terraform/terraform.tfvars
 
       - name: Terraform Init
         working-directory: terraform
