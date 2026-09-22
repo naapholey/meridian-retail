@@ -120,6 +120,6 @@ jobs:
           REPOSITORY: meridian-auth-ecr
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          cd meridian-retail/auth-service
+          cd ./meridian-retail/auth-service
           docker build -t $REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG .
           docker push $REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
