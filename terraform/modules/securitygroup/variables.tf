@@ -33,6 +33,6 @@ variable "outbound_port" {
   type        = number
   description = "Port for Kubernetes NodePort service"
  }
- /* variable "runner_ssh_ip" {
+  variable "runner_ssh_ip" {
  
-} */
+} 

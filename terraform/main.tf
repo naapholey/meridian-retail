@@ -12,6 +12,7 @@ module "vpc" {
 module "securitygroup" {
   source = "./modules/securitygroup"
   vpc_id              = module.vpc.vpc_id
+  runner_ssh_ip = var.runner_ssh_ip
   security_group_name = "meridian-sg"
   inbound_port        = 80
   ssh_port            = 22
@@ -35,4 +36,14 @@ instance_type = var.instance_type
 module "aws_ecr_repository" {
   source = "./modules/ecr"
   project_name = "meridian"
+}
+
+terraform {
+  backend "s3" {
+    bucket       = "meridian-terraform-state-92a7ed8e"
+    key          = "global/s3/terraform.tfstate"
+    region       = "us-east-1"
+    encrypt      = true
+    use_lockfile = true
+  }
 }
