@@ -138,3 +138,26 @@ jobs:
           
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+  
+  EC2-Pull_and-Run:
+    name: EC2 Pull and Run
+    runs-on: ubuntu-latest
+    needs: 
+      - infrastructure
+      - Docker-create-and-push
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ needs.infrastructure.outputs.ec2_public_ip }}
+          username: ${{ secrets.SSH_USERNAME }}    
+          key: ${{ secrets.SSH_KEY }} 
+          script:
+            REGISTRY=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
+
+            aws ecr get-login-password --region us-east-1 | \
+            docker login --username AWS --password-stdin $REGISTRY
+
+            docker compose pull
+            docker compose up -d
