@@ -55,6 +55,10 @@ resource "aws_iam_role_policy_attachment" "attach_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
   //policy_arn = aws_iam_policy.meridian.arn
 }
+resource "aws_iam_role_policy_attachment" "ssm" {
+  role       = aws_iam_role.meridian.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
 resource "aws_iam_role_policy_attachment" "ecr_attach_policy" {
   role       = aws_iam_role.meridian.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
