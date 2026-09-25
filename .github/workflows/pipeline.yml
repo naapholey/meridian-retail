@@ -170,7 +170,7 @@ jobs:
           "cd /opt/meridian-retail",
           "docker compose pull",
           "docker compose up -d"
-          ]' \
+          ]' \ 
           --query "Command.CommandId" \
           --output text)
 
