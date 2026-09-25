@@ -157,7 +157,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-            - name: Deploy via SSM
+      - name: Deploy via SSM
         env:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           INSTANCE_ID: ${{ needs.infrastructure.outputs.instance_id }}
